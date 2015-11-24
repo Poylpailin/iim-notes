@@ -1,0 +1,13 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col m12">
+                Bienvenue {{ lastUsername }}
+            </div>
+        </div>
+    </div>
+{% endblock fos_user_content %}

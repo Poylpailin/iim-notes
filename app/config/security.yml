@@ -1,0 +1,62 @@
+# app/config/security.yml
+security:
+    # est appelé une fois que l'utilisateur a entré ces données
+    providers:
+        in_memory: #nom libre mais important
+            memory:
+                users:
+                    #super_admin est le username
+                    super_admin: { password: E793CCFB0632F46F6AE7C7F20E448277909BA5975D9C8A8893490A9F638E0523DC259238D610B2000B78E0B85CD53B33E430691B4309BB6F703AB1ACE78BDD30, roles: [ 'ROLE_SUPER_ADMIN' ] }
+                    admin: { password: Oob0FmH8l5IkiIuMaHmbxA2SrO/6o3yiRCtIs4JS7ZWBHirzUZwxCWbSLVbGT+f3H8cqUIcta5hkWfmo/+LJgA==, roles: [ 'ROLE_ADMIN' ] }
+
+        main:
+            entity:
+                class:    AppBundle\Entity\Admin
+                property: name
+
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
+
+
+    firewalls:
+        dev:
+            # cette instruction permet de totalement désactiver le composant
+            # on veut autoriser tout le monde à utiliser notre application
+            pattern: ^/(_(profiler|wdt|error)|css|images|js)/
+            security: false
+
+        # je décide de sécuriser toutes les URL commençant par "/admin"
+        admin:
+            pattern:    ^/admin
+            # on ordonne au navigateur de la personne de lui demander de s'authentifier
+            http_basic: ~
+            provider: fos_userbundle
+
+        # tout le reste est ouvert aux utilisateurs connectés ou pas
+        main:
+            pattern: ^/
+            form_login:
+                provider: fos_userbundle
+            logout:       true
+            anonymous:    true
+            knpu_guard:
+                authenticators:
+                - app.api_token_authenticator
+
+    # Qui a le droit de faire quoi ?
+    access_control:
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login$, role: ROLE_SUPER_ADMIN }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/, role: ROLE_SUPER_ADMIN }
+
+    encoders:
+        FOS\UserBundle\Model\UserInterface: bcrypt
+        Symfony\Component\Security\Core\User\User: #plaintext
+            algorithm:   sha512
+
+    role_hierarchy:
+            ROLE_ADMIN:       ROLE_USER
+            ROLE_SUPER_ADMIN: ROLE_ADMIN

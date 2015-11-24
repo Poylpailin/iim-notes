@@ -1,0 +1,21 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <h1>Admins list</h1>
+
+                <ul>
+                    {% for admin in admins %}
+                        <li>{{ admin.name }} - {{ admin.email }}
+                            - <a href="{{ path('admin_delete', {id: admin.id}) }}">Delete</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
