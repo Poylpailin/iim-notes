@@ -19,7 +19,7 @@ class StudentControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/admin/student');
 
         # Vérification
-        $this->assertContains('Students List', $client->getResponse()->getContent());
+        $this->assertContains('Jean', $client->getResponse()->getContent());
 
     }
 

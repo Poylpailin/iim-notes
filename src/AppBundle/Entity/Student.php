@@ -54,9 +54,6 @@ class Student
     private $grades;
 
 
-    /**
-     * @ORM\Column(type="string", unique=true)
-     */
     /*private $apiToken;
 
     public function getApiToken()

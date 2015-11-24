@@ -19,7 +19,7 @@ class GradeControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/admin/grade');
 
         # Vérification
-        $this->assertContains('Grades List', $client->getResponse()->getContent());
+        $this->assertContains('grade', $client->getResponse()->getContent());
 
     }
 

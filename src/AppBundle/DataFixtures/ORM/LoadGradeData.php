@@ -12,7 +12,7 @@ class LoadGradeData extends AbstractFixture
     {
         // Je créé les objets que je veux pour mes tests
         $grade = new Grade();
-        $grade ->setName('Piscine');
+        $grade ->setName('grade');
         $grade->setGrade('5/20');
 
         // Je sauvegarde en DB

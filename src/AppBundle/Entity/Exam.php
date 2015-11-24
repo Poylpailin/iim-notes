@@ -44,9 +44,6 @@ class Exam
      */
     private $grade;
 
-    /**
-     * @ORM\Column(type="string", unique=true)
-     */
     /*private $apiToken;
 
     public function getApiToken()
